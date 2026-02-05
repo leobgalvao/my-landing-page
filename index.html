@@ -3,25 +3,150 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Minha Dashboard Dev</title>
+    <title>DevOps Dashboard | leobgalvao</title>
     <style>
-        body { font-family: sans-serif; background: #121212; color: white; display: flex; justify-content: center; padding: 50px; }
-        .container { max-width: 600px; width: 100%; }
-        h1 { border-bottom: 2px solid #333; padding-bottom: 10px; }
-        .links { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 20px; }
-        a { background: #1e1e1e; padding: 20px; text-decoration: none; color: #007bff; border-radius: 8px; text-align: center; transition: 0.3s; border: 1px solid #333; }
-        a:hover { background: #252525; border-color: #007bff; }
+        :root {
+            --bg-color: #0d1117;       /* Cinza quase preto (GitHub style) */
+            --card-bg: #161b22;        /* Cinza escuro */
+            --border-color: #30363d;   /* Cinza médio para bordas */
+            --text-main: #c9d1d9;      /* Cinza claro para leitura */
+            --accent-blue: #2f81f7;    /* Azul DevOps vibrante */
+            --hover-bg: #21262d;       /* Cinza interativo */
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, monospace;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+            padding: 60px 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            width: 100%;
+        }
+
+        header {
+            border-left: 4px solid var(--accent-blue);
+            padding-left: 20px;
+            margin-bottom: 40px;
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            margin: 0;
+            letter-spacing: -1px;
+            color: #ffffff;
+        }
+
+        .status-bar {
+            font-size: 0.8rem;
+            color: #8b949e;
+            margin-top: 5px;
+            font-family: 'Courier New', Courier, monospace;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 16px;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 20px;
+            text-decoration: none;
+            color: var(--text-main);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card:hover {
+            border-color: var(--accent-blue);
+            background-color: var(--hover-bg);
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+        }
+
+        /* Indicador sutil de link externo */
+        .card::after {
+            content: "→";
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            font-size: 0.7rem;
+            color: var(--accent-blue);
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+
+        .card:hover::after {
+            opacity: 1;
+        }
+
+        .card strong {
+            font-size: 1.1rem;
+            margin-bottom: 4px;
+            color: var(--accent-blue);
+        }
+
+        .card span {
+            font-size: 0.75rem;
+            color: #8b949e;
+            text-transform: uppercase;
+        }
+
+        /* Footer com pegada técnica */
+        footer {
+            margin-top: 60px;
+            text-align: center;
+            font-family: monospace;
+            font-size: 0.7rem;
+            color: #484f58;
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>🛠️ Work Dashboard</h1>
-        <div class="links">
-            <a href="https://gemini.google.com/app?hl=en-US" target="_blank">GitHub</a>
-            <a href="https://chatgpt.com/" target="_blank">AWS Console</a>
-            <a href="https://claude.ai/" target="_blank">Jenkins</a>
-            <a href="https://replit.com/~" target="_blank">Docker Hub</a>
+        <header>
+            <h1>OPS_CENTER v1.0</h1>
+            <div class="status-bar">> local_environment: deployed_ready</div>
+        </header>
+
+        <div class="grid">
+            <a href="https://gemini.google.com/app?hl=en-US" target="_blank" class="card">
+                <strong>Gemini</strong>
+                <span>AI Engine</span>
+            </a>
+            <a href="https://chatgpt.com/" target="_blank" class="card">
+                <strong>ChatGPT</strong>
+                <span>AI Engine</span>
+            </a>
+            <a href="https://claude.ai/" target="_blank" class="card">
+                <strong>Claude</strong>
+                <span>AI Engine</span>
+            </a>
+            <a href="https://replit.com/~" target="_blank" class="card">
+                <strong>Replit</strong>
+                <span>Cloud IDE</span>
+            </a>
         </div>
+
+        <footer>
+            [SYSTEM-STATUS: STABLE] | DEPLOYED VIA GITHUB PAGES
+        </footer>
     </div>
 </body>
 </html>
