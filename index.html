@@ -1,151 +1,529 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DevOps Dashboard | leobgalvao</title>
+    <title>My Daily Hub - Your Personal Gateway</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,400;0,600;1,400;1,700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         :root {
-            --bg-color: #0d1117;       /* Cinza quase preto (GitHub style) */
-            --card-bg: #161b22;        /* Cinza escuro */
-            --border-color: #30363d;   /* Cinza médio para bordas */
-            --text-main: #c9d1d9;      /* Cinza claro para leitura */
-            --accent-blue: #2f81f7;    /* Azul DevOps vibrante */
-            --hover-bg: #21262d;       /* Cinza interativo */
+            --primary-cream: #f5f1e8;
+            --secondary-tan: #d4c5a9;
+            --accent-gold: #c9a961;
+            --accent-olive: #6b7a5c;
+            --accent-terracotta: #b86f50;
+            --deep-green: #3d5941;
+            --dark-brown: #4a3f35;
+            --text-dark: #2c2420;
+            --text-light: #f5f1e8;
+            --overlay-dark: rgba(44, 36, 32, 0.75);
+            --card-bg: rgba(245, 241, 232, 0.95);
         }
 
         body {
-            font-family: 'Segoe UI', Roboto, monospace;
-            background-color: var(--bg-color);
-            color: var(--text-main);
-            margin: 0;
-            display: flex;
-            justify-content: center;
-            align-items: flex-start;
+            font-family: 'Montserrat', sans-serif;
+            background: var(--primary-cream);
+            color: var(--text-dark);
+            line-height: 1.6;
             min-height: 100vh;
-            padding: 60px 20px;
-        }
-
-        .container {
-            max-width: 800px;
-            width: 100%;
-        }
-
-        header {
-            border-left: 4px solid var(--accent-blue);
-            padding-left: 20px;
-            margin-bottom: 40px;
-        }
-
-        h1 {
-            font-size: 1.8rem;
-            margin: 0;
-            letter-spacing: -1px;
-            color: #ffffff;
-        }
-
-        .status-bar {
-            font-size: 0.8rem;
-            color: #8b949e;
-            margin-top: 5px;
-            font-family: 'Courier New', Courier, monospace;
-        }
-
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-            gap: 16px;
-        }
-
-        .card {
-            background-color: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 6px;
-            padding: 20px;
-            text-decoration: none;
-            color: var(--text-main);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            overflow-x: hidden;
             position: relative;
+        }
+
+        /* Hero Background with Image */
+        .hero-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            z-index: 0;
             overflow: hidden;
         }
 
-        .card:hover {
-            border-color: var(--accent-blue);
-            background-color: var(--hover-bg);
-            transform: translateY(-4px);
-            box-shadow: 0 8px 24px rgba(0,0,0,0.3);
-        }
-
-        /* Indicador sutil de link externo */
-        .card::after {
-            content: "→";
+        .hero-background::before {
+            content: '';
             position: absolute;
-            bottom: 10px;
-            right: 10px;
-            font-size: 0.7rem;
-            color: var(--accent-blue);
-            opacity: 0;
-            transition: opacity 0.2s;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            /* Beautiful nature background - Serene landscape with calm atmosphere */
+            background-image: 
+                linear-gradient(to bottom, rgba(44, 36, 32, 0.25) 0%, rgba(44, 36, 32, 0.65) 100%),
+                url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1920&q=90');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            filter: brightness(0.95);
         }
 
-        .card:hover::after {
-            opacity: 1;
+        /* Organic texture overlay */
+        .hero-background::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(circle at 20% 30%, rgba(201, 169, 97, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(107, 122, 92, 0.08) 0%, transparent 50%);
+            animation: textureShift 30s ease-in-out infinite;
         }
 
-        .card strong {
-            font-size: 1.1rem;
-            margin-bottom: 4px;
-            color: var(--accent-blue);
+        @keyframes textureShift {
+            0%, 100% { opacity: 0.5; transform: scale(1); }
+            50% { opacity: 0.8; transform: scale(1.05); }
         }
 
-        .card span {
-            font-size: 0.75rem;
-            color: #8b949e;
-            text-transform: uppercase;
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+            position: relative;
+            z-index: 1;
         }
 
-        /* Footer com pegada técnica */
-        footer {
-            margin-top: 60px;
+        /* Header */
+        header {
             text-align: center;
-            font-family: monospace;
-            font-size: 0.7rem;
-            color: #484f58;
+            padding: 6rem 0 4rem;
+            animation: fadeInDown 1.2s ease-out;
+            position: relative;
+        }
+
+        h1 {
+            font-family: 'Cormorant', serif;
+            font-size: clamp(3.5rem, 7vw, 7rem);
+            font-weight: 700;
+            font-style: italic;
+            color: var(--text-light);
+            margin-bottom: 1.5rem;
+            letter-spacing: 0.02em;
+            text-shadow: 2px 4px 12px rgba(0, 0, 0, 0.4);
+            line-height: 1.1;
+        }
+
+        .subtitle {
+            font-size: 1.1rem;
+            color: var(--secondary-tan);
+            font-weight: 300;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            text-shadow: 1px 2px 8px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Decorative divider */
+        .divider {
+            width: 100px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--accent-gold), transparent);
+            margin: 3rem auto;
+            position: relative;
+        }
+
+        .divider::before {
+            content: '◆';
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            color: var(--accent-gold);
+            font-size: 0.8rem;
+            background: var(--overlay-dark);
+            padding: 0 8px;
+        }
+
+        /* Sections */
+        .content-wrapper {
+            background: linear-gradient(to bottom, transparent 0%, rgba(245, 241, 232, 0.6) 20%, rgba(245, 241, 232, 0.95) 40%);
+            padding-top: 2rem;
+            backdrop-filter: blur(2px);
+        }
+
+        .section {
+            margin: 4rem 0;
+            opacity: 0;
+            animation: fadeInUp 1s ease-out forwards;
+            background: var(--card-bg);
+            padding: 3rem 2rem;
+            border-radius: 8px;
+            box-shadow: 0 8px 32px rgba(44, 36, 32, 0.1);
+            border: 1px solid rgba(201, 169, 97, 0.2);
+        }
+
+        .section:nth-child(1) { animation-delay: 0.3s; }
+        .section:nth-child(2) { animation-delay: 0.5s; }
+        .section:nth-child(3) { animation-delay: 0.7s; }
+
+        .section-title {
+            font-family: 'Cormorant', serif;
+            font-size: 2.8rem;
+            font-weight: 600;
+            font-style: italic;
+            margin-bottom: 2.5rem;
+            text-align: center;
+            color: var(--deep-green);
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 2px;
+            background: var(--accent-gold);
+        }
+
+        /* Links Grid */
+        .links-grid {
+            display: grid;
+            gap: 1.5rem;
+            margin-top: 3rem;
+        }
+
+        .links-grid.cols-4 {
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        }
+
+        .links-grid.cols-3 {
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        }
+
+        .links-grid.cols-6 {
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        }
+
+        /* Link Cards */
+        .link-card {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(245, 241, 232, 0.85) 100%);
+            border: 2px solid var(--secondary-tan);
+            border-radius: 12px;
+            padding: 2rem 1.5rem;
+            text-decoration: none;
+            color: var(--text-dark);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+        }
+
+        .link-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--accent-gold) 0%, var(--accent-terracotta) 100%);
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            z-index: 0;
+        }
+
+        .link-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            border-color: var(--accent-gold);
+            box-shadow: 0 16px 48px rgba(201, 169, 97, 0.3);
+        }
+
+        .link-card:hover::before {
+            opacity: 0.08;
+        }
+
+        .link-icon {
+            font-size: 3rem;
+            transition: all 0.5s ease;
+            position: relative;
+            z-index: 1;
+            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+        }
+
+        .link-card:hover .link-icon {
+            transform: scale(1.2) translateY(-4px);
+        }
+
+        .link-name {
+            font-weight: 500;
+            font-size: 1rem;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+            letter-spacing: 0.05em;
+        }
+
+        /* Section-specific styling */
+        .section-updated {
+            background: linear-gradient(135deg, rgba(245, 241, 232, 0.98) 0%, rgba(212, 197, 169, 0.95) 100%);
+            border-left: 4px solid var(--accent-olive);
+        }
+
+        .section-flow {
+            background: linear-gradient(135deg, rgba(245, 241, 232, 0.98) 0%, rgba(107, 122, 92, 0.12) 100%);
+            border-left: 4px solid var(--accent-terracotta);
+        }
+
+        .section-work {
+            background: linear-gradient(135deg, rgba(245, 241, 232, 0.98) 0%, rgba(201, 169, 97, 0.15) 100%);
+            border-left: 4px solid var(--deep-green);
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 4rem 2rem 2rem;
+            margin-top: 4rem;
+            background: var(--overlay-dark);
+            color: var(--text-light);
+            position: relative;
+            z-index: 1;
+        }
+
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 200px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--accent-gold), transparent);
+        }
+
+        footer p {
+            font-size: 0.9rem;
+            color: var(--secondary-tan);
+            margin: 0.5rem 0;
+        }
+
+        footer a {
+            color: var(--accent-gold);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        footer a:hover {
+            color: var(--accent-terracotta);
+        }
+
+        /* Animations */
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Icon colors - natural/organic palette */
+        .icon-google { color: #6b7a5c; }
+        .icon-gmail { color: #b86f50; }
+        .icon-yahoo { color: #8b6f47; }
+        .icon-instagram { color: #c9a961; }
+        .icon-spotify { color: #4a7c59; }
+        .icon-bible { color: #c9a961; }
+        .icon-youtube { color: #b86f50; }
+        .icon-chatgpt { color: #6b7a5c; }
+        .icon-github { color: #4a3f35; }
+        .icon-stackoverflow { color: #c9a961; }
+        .icon-gemini { color: #8b6f47; }
+        .icon-claude { color: #b86f50; }
+        .icon-grok { color: #6b7a5c; }
+        .icon-dribbble { color: #c9a961; }
+        .icon-replit { color: #b86f50; }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+
+            header {
+                padding: 4rem 0 2rem;
+            }
+
+            h1 {
+                font-size: 3rem;
+            }
+
+            .section {
+                margin: 2rem 0;
+                padding: 2rem 1.5rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .link-card {
+                padding: 1.5rem;
+            }
+
+            .links-grid.cols-4,
+            .links-grid.cols-3,
+            .links-grid.cols-6 {
+                grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+                gap: 1rem;
+            }
+
+            .link-icon {
+                font-size: 2.5rem;
+            }
+        }
+
+        /* Accessibility */
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
         }
     </style>
 </head>
 <body>
+    <!-- Hero Background -->
+    <div class="hero-background"></div>
+
     <div class="container">
+        <!-- Header -->
         <header>
-            <h1>OPS_CENTER v1.0</h1>
-            <div class="status-bar">> local_environment: deployed_ready</div>
+            <h1>Leo's Daily Hub</h1>
+            <p class="subtitle">Commit your works to the LORD, and your thoughts will be established</p>
+            <div class="divider"></div>
         </header>
 
-        <div class="grid">
-            <a href="https://gemini.google.com/app?hl=en-US" target="_blank" class="card">
-                <strong>Gemini</strong>
-                <span>AI Engine</span>
-            </a>
-            <a href="https://chatgpt.com/" target="_blank" class="card">
-                <strong>ChatGPT</strong>
-                <span>AI Engine</span>
-            </a>
-            <a href="https://claude.ai/" target="_blank" class="card">
-                <strong>Claude</strong>
-                <span>AI Engine</span>
-            </a>
-            <a href="https://replit.com/~" target="_blank" class="card">
-                <strong>Replit</strong>
-                <span>Cloud IDE</span>
-            </a>
+        <div class="content-wrapper">
+            <!-- Section 1: Stay Updated -->
+            <section class="section section-updated">
+                <h2 class="section-title">Stay Updated</h2>
+                <div class="links-grid cols-4">
+                    <a href="https://www.google.com" target="_blank" class="link-card">
+                        <i class="fas fa-search link-icon icon-google"></i>
+                        <span class="link-name">Google</span>
+                    </a>
+                    <a href="https://mail.google.com" target="_blank" class="link-card">
+                        <i class="fas fa-envelope link-icon icon-gmail"></i>
+                        <span class="link-name">Gmail</span>
+                    </a>
+                    <a href="https://www.yahoo.com" target="_blank" class="link-card">
+                        <i class="fab fa-yahoo link-icon icon-yahoo"></i>
+                        <span class="link-name">Yahoo</span>
+                    </a>
+                    <a href="https://www.instagram.com" target="_blank" class="link-card">
+                        <i class="fab fa-instagram link-icon icon-instagram"></i>
+                        <span class="link-name">Instagram</span>
+                    </a>
+                </div>
+            </section>
+
+            <!-- Section 2: Get in the Flow -->
+            <section class="section section-flow">
+                <h2 class="section-title">Get in the Flow</h2>
+                <div class="links-grid cols-3">
+                    <a href="https://open.spotify.com" target="_blank" class="link-card">
+                        <i class="fab fa-spotify link-icon icon-spotify"></i>
+                        <span class="link-name">Spotify</span>
+                    </a>
+                    <a href="https://www.holybible.com" target="_blank" class="link-card">
+                        <i class="fas fa-book-bible link-icon icon-bible"></i>
+                        <span class="link-name">Holy Bible</span>
+                    </a>
+                    <a href="https://www.youtube.com" target="_blank" class="link-card">
+                        <i class="fab fa-youtube link-icon icon-youtube"></i>
+                        <span class="link-name">YouTube</span>
+                    </a>
+                </div>
+            </section>
+
+            <!-- Section 3: Let's Get to Work -->
+            <section class="section section-work">
+                <h2 class="section-title">Let's Get to Work</h2>
+                <div class="links-grid cols-6">
+                    <a href="https://chat.openai.com" target="_blank" class="link-card">
+                        <i class="fas fa-robot link-icon icon-chatgpt"></i>
+                        <span class="link-name">ChatGPT</span>
+                    </a>
+                    <a href="https://gemini.google.com" target="_blank" class="link-card">
+                        <i class="fas fa-gem link-icon icon-gemini"></i>
+                        <span class="link-name">Gemini</span>
+                    </a>
+                    <a href="https://claude.ai" target="_blank" class="link-card">
+                        <i class="fas fa-brain link-icon icon-claude"></i>
+                        <span class="link-name">Claude</span>
+                    </a>
+                    <a href="https://grok.x.ai" target="_blank" class="link-card">
+                        <i class="fas fa-bolt link-icon icon-grok"></i>
+                        <span class="link-name">Grok</span>
+                    </a>
+                    <a href="https://github.com" target="_blank" class="link-card">
+                        <i class="fab fa-github link-icon icon-github"></i>
+                        <span class="link-name">GitHub</span>
+                    </a>
+                     <a href="https://www.git.pe.gov.br/" target="_blank" class="link-card">
+                        <i class="fab fa-gitlab link-icon icon-gitlab"></i>
+                        <span class="link-name">GitLab PE</span>
+                    </a>
+                    <a href="https://stackoverflow.com" target="_blank" class="link-card">
+                        <i class="fab fa-stack-overflow link-icon icon-stackoverflow"></i>
+                        <span class="link-name">Stack Overflow</span>
+                    </a>                    
+                    <a href="https://dribbble.com" target="_blank" class="link-card">
+                        <i class="fab fa-dribbble link-icon icon-dribbble"></i>
+                        <span class="link-name">Dribbble</span>
+                    </a>
+                    <a href="https://replit.com" target="_blank" class="link-card">
+                        <i class="fas fa-laptop-code link-icon icon-replit"></i>
+                        <span class="link-name">Replit</span>
+                    </a>
+                </div>
+            </section>
         </div>
 
+        <!-- Footer -->
         <footer>
-            [SYSTEM-STATUS: STABLE] | DEPLOYED VIA GITHUB PAGES
+            <p>&copy; 2026 My Daily Hub</p>
+            <p style="margin-top: 0.5rem; font-size: 0.85rem;">
+                Design inspired by the Creator
+            </p>
         </footer>
     </div>
 </body>
